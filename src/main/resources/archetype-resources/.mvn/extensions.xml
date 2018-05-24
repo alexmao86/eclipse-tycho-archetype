@@ -1,0 +1,11 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<extensions>
+    <!-- Enable pom-less configuration -->
+	<extension>
+		<groupId>org.eclipse.tycho.extras</groupId>
+		<artifactId>tycho-pomless</artifactId>
+		<version>0.26.0</version>
+	</extension>
+</extensions>

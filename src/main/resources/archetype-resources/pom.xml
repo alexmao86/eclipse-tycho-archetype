@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>${groupId}</groupId>
+		<artifactId>${artifactId}.releng.configuration</artifactId>
+		<version>${version}</version>
+		<relativePath>./releng/${artifactId}.releng.configuration</relativePath>
+	</parent>
+
+	<properties>
+		<!-- Deploy only the P2 update sites and avoid keeping all build artifacts -->
+		<maven.deploy.skip>true</maven.deploy.skip>
+	</properties>
+
+</project>

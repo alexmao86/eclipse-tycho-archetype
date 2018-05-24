@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" 
+    name="Maven Tycho Build"
+    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <fileSets>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>.mvn</directory>
+      <includes>
+        <include>**/*.xml</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+  <modules>
+    <module id="${rootArtifactId}.bundles" dir="bundles" name="${rootArtifactId}.bundles" />
+    <module id="${rootArtifactId}.features" dir="features" name="${rootArtifactId}.features" />
+    <module id="${rootArtifactId}.releng" dir="releng" name="${rootArtifactId}.releng">
+      <fileSets>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>__rootArtifactId__.releng.configuration</directory>
+          <includes>
+            <include>**/*.xml</include>
+            <include>**/*.project</include>
+          </includes>
+        </fileSet>
+      </fileSets>
+      <modules>
+        <module id="${rootArtifactId}.releng.p2" dir="__rootArtifactId__.releng.p2" name="${rootArtifactId}.releng.p2">
+          <fileSets>
+            <fileSet filtered="true" encoding="UTF-8">
+              <directory></directory>
+              <includes>
+                <include>.project</include>
+                <include>category.xml</include>
+              </includes>
+            </fileSet>
+          </fileSets>
+        </module>
+        <module id="${rootArtifactId}.releng.targetplatform" dir="__rootArtifactId__.releng.targetplatform" name="${rootArtifactId}.releng.targetplatform">
+          <fileSets>
+            <fileSet filtered="true" encoding="UTF-8">
+              <directory></directory>
+              <includes>
+                <include>.project</include>
+              </includes>
+            </fileSet>
+            <fileSet encoding="UTF-8">
+              <directory></directory>
+              <includes>
+                <include>__rootArtifactId__.releng.targetplatform.target</include>
+              </includes>
+            </fileSet>
+          </fileSets>
+        </module>
+      </modules>
+    </module>
+    <module id="${rootArtifactId}.tests" dir="tests" name="${rootArtifactId}.tests" />
+  </modules>
+</archetype-descriptor>
