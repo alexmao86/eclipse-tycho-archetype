@@ -3,6 +3,11 @@
     name="Maven Tycho Build"
     xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <requiredProperties>
+    <requiredProperty key="tycho-version">
+      <defaultValue>1.1.0</defaultValue>
+    </requiredProperty>
+  </requiredProperties>
   <fileSets>
     <fileSet filtered="true" encoding="UTF-8">
       <directory>.mvn</directory>
