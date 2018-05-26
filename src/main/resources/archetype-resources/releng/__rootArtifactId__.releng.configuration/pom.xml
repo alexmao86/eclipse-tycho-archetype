@@ -19,29 +19,19 @@
 
 	<build>
 		<plugins>
+			<!-- Enable Tycho build extension -->
 			<plugin>
-				<!-- Enable Tycho build extension -->
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${symbol_dollar}{tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
+            <!-- Ease version change -->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-versions-plugin</artifactId>
 				<version>${symbol_dollar}{tycho-version}</version>
 			</plugin>
-            
-			<plugin>
-				<!-- Ignore the access restriction on python method calls -->
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
-				<version>${symbol_dollar}{tycho-version}</version>
-				<configuration>
-					<compilerArgument>-warn:+discouraged,forbidden</compilerArgument>
-				</configuration>
-			</plugin>
-            
             <!-- Defines the target definition file to use for build -->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -92,6 +82,7 @@
                 </configuration>
 			</plugin>
 
+            <!-- Generates JAR package containing all the source files of an OSGI project -->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-source-plugin</artifactId>
