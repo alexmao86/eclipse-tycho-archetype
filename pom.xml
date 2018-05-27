@@ -4,7 +4,7 @@
 
   <groupId>fr.kazejiyu</groupId>
   <artifactId>kazejiyu-tycho-archetype</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <packaging>maven-archetype</packaging>
 
   <name>Archetype for Tycho projects</name>
