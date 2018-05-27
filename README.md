@@ -12,11 +12,11 @@ This repository contains a [sample project](src/test/resources/projects/piou/ref
 
 As any other archetype, the Tycho Archetype can be used from the command line. It is identified by the following properties:
 
-```markdown
-Group ID: fr.kazejiyu.maven.archetypes  
-Artifact ID: kazejiyu-tycho-archetype  
-Version: (see Bintray badge above)
-```
+| Property | Value |
+| :---         |     :---:      |  
+| Group ID | `fr.kazejiyu.maven.archetypes` |  
+| Artifact ID | `kazejiyu-tycho-archetype` |  
+| Version | (see Bintray badge above) |  
 
 Type the following command to use the archetype and to start the generation of a new project:
 ```
@@ -117,16 +117,82 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
         
         <modules>
                 <module>fr.kazejiyu.piou.core</module>
-        </modules>
-    
+        </modules>    
 </project>
 ```
 
 ### Create a test plug-in
 
-**TODO** Documente creation of test plug-ins for JUnit 4 and JUnit 5, since it can be a bit tricky.
+#### Location
+
+All the test plug-ins should be located under the `tests/` folder. For instance, adding a `fr.kazejiyu.piou.core.tests` plugin-in to the project would result in the following tree structure:
+
+```
+.
+└───tests
+    │   pom.xml
+    └───fr.kazejiyu.piou.core.tests
+        │   .classpath
+        │   .project
+        │   build.properties
+        │   pom.xml
+        ├───.settings
+        │       org.eclipse.jdt.core.prefs
+        ├───META-INF
+        │       MANIFEST.MF
+``` 
+
+#### Add to Maven build
+
+In order to be taken into account by Maven, the plug-in must be added as a sub-module of the _features_ module. To this end, the _features/pom.xml_ must be enhanced with a `<module>` tag as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>fr.kazejiyu.piou</groupId>
+	<artifactId>fr.kazejiyu.piou.tests</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+        ...
+        
+        <modules>
+                <module>fr.kazejiyu.piou.core.tests</module>
+        </modules>    
+</project>
+```
+
+Moreover, a _pom.xml_ must be added to the `fr.kazejiyu.piou.core.tests` folder ; its aim is to indicate to Tycho that the plug-in holds tests. This file looks like:
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <groupId>fr.kazejiyu.piou</groupId>
+    <artifactId>fr.kazejiyu.piou.core.tests</artifactId>
+    <packaging>eclipse-test-plugin</packaging>
+
+	<parent>
+		<groupId>fr.kazejiyu.piou</groupId>
+		<artifactId>fr.kazejiyu.piou.tests</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+</project>
+```
+
+> **Note**: the import thing here is the _eclipse-test-plugin_ packaging.
+
+#### Execute the tests
+
+The tests can be executed with `mvn verify`.
+
+> **/!\ Caution**: don't forget to add the `org.junit` and its dependencies to the target platform, otherwise the Maven build will fail. JUnit plug-ins can be found in the [Orbit repository](http://download.eclipse.org/tools/orbit/downloads/).
 
 ### Create a feature
+
+#### Location
 
 All the features should be located under the `features/` folder. For instance, adding a `fr.kazejiyu.piou.feature` plug-in to the project would result in the following tree structure:
 
@@ -158,8 +224,7 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
         
         <modules>
                 <module>fr.kazejiyu.piou.feature</module>
-        </modules>
-    
+        </modules>    
 </project>
 ```
 
