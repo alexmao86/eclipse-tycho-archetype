@@ -13,4 +13,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
     
+    <modules>
+        <!-- Add your plug-ins here as: -->
+        <!-- <module>plugin-artifactId</module> -->
+    </modules>
+    
 </project>
