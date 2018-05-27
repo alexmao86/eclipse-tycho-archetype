@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>fr.kazejiyu.piou</groupId>
+	<artifactId>fr.kazejiyu.piou.piouloulou</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>fr.kazejiyu.piou</groupId>
+		<artifactId>fr.kazejiyu.piou.piouloulou.releng.configuration</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>./releng/fr.kazejiyu.piou.piouloulou.releng.configuration</relativePath>
+	</parent>
+
+	<properties>
+		<!-- Deploy only the P2 update sites and avoid keeping all build artifacts -->
+		<maven.deploy.skip>true</maven.deploy.skip>
+	</properties>
+
+  <modules>
+    <module>bundles</module>
+    <module>features</module>
+    <module>releng</module>
+    <module>tests</module>
+  </modules>
+</project>
