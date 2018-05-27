@@ -12,5 +12,10 @@
 		<artifactId>${rootArtifactId}</artifactId>
 		<version>${version}</version>
 	</parent>
+    
+    <modules>
+        <!-- Add your features here as: -->
+        <!-- <module>feature-artifactId</module> -->
+    </modules>
 
 </project>

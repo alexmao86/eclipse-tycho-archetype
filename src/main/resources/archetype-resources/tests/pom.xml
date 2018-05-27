@@ -12,5 +12,21 @@
 		<artifactId>${rootArtifactId}</artifactId>
 		<version>${version}</version>
 	</parent>
+    
+    <modules>
+        <!-- Add your test plug-ins here as: -->
+        <!-- <module>test-plugin-artifactId</module> -->
+    </modules>
+    
+    <build>
+        <plugins>
+            <!-- Executes JUnit tests -->
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-surefire-plugin</artifactId>
+                <version>${tycho-version}</version>
+            </plugin>
+        </plugins>
+    </build>
 	
 </project>

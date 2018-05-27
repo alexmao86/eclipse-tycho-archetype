@@ -13,4 +13,9 @@
 		<version>${version}</version>
 	</parent>
     
+    <modules>
+        <!-- Add your plug-ins here as: -->
+        <!-- <module>plugin-artifactId</module> -->
+    </modules>
+    
 </project>
