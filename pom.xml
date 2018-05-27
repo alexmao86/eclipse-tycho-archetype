@@ -8,6 +8,13 @@
   <packaging>maven-archetype</packaging>
 
   <name>Archetype for Tycho projects</name>
+  
+  <distributionManagement>
+    <repository>
+      <id>bintray</id>
+      <url>https://api.bintray.com/maven/kazejiyu/kazejiyu-tycho-archetype/kazejiyu-tycho-archetype/;publish=1</url>
+    </repository>
+  </distributionManagement>
 
   <build>
     <extensions>
