@@ -10,18 +10,17 @@ This repository contains a [sample project](src/test/resources/projects/piou/ref
 
 ## Usage
 
-### Installing
-
 As any other archetype, the Tycho Archetype can be used from the command line. It is identified by the following properties:
 
-**groupId**: fr.kazejiyu.maven.archetypes  
-**artifactId**: kazejiyu-tycho-archetype  
-
-> Please check GitHub badges above for the latest version.
-
-Type the following command to use the archetype:
+```markdown
+Group ID: fr.kazejiyu.maven.archetypes  
+Artifact ID: kazejiyu-tycho-archetype  
+Version: (see Bintray badge above)
 ```
-mvn archetype:generate -DarchetypeGroupId=fr.kazejiyu.maven.archetypes -DarchetypeArtifactId=kazejiyu-tycho-archetype -DarchetypeVersion=0.1.0 -DarchetypeRepository=https://dl.bintray.com/kazejiyu/maven
+
+Type the following command to use the archetype and to start the generation of a new project:
+```
+mvn archetype:generate -DarchetypeGroupId=fr.kazejiyu.maven.archetypes -DarchetypeArtifactId=kazejiyu-tycho-archetype -DarchetypeRepository=https://dl.bintray.com/kazejiyu/maven
 ```
 
 > You can alternatively clone this repository then install the archetype in your local installation by typing `mvn install`
@@ -62,3 +61,124 @@ The archetype follows [Lars Vogel advices](http://www.vogella.com/tutorials/Ecli
 └───tests
         pom.xml
 ```
+
+## Use the generated project
+
+### Table of Contents
+
+- [Build the project](#build-the-project)
+- [Create a plug-in](#create-a-plug-in)
+- [Create a test plug-in](#create-a-test-plug-in)
+- [Create a feature](#create-a-feature)
+- [Configurate the dependencies](#configurate-the-dependencies)
+- [Generate an update site](#generate-an-update-site)
+
+### Build the project
+
+The generated project can be built with Maven via `mvn clean package`.
+
+### Create a plug-in
+
+#### Location
+
+All the plug-ins should be located under the `bundles/` folder. For instance, adding a `fr.kazejiyu.piou.core` plug-in to the project would result in the following tree structure:
+
+```
+.
+├───bundles
+│   │   pom.xml
+│   └───fr.kazejiyu.piou.core
+│       │   .classpath
+│       │   .project
+│       │   build.properties
+│       ├───.settings
+│       │       org.eclipse.jdt.core.prefs
+│       ├───bin
+│       ├───META-INF
+│       │       MANIFEST.MF
+│       └───src
+```
+
+#### Add to Maven build
+
+In order to be taken into account by Maven, the plug-in must be added as a sub-module of the _bundles_ module. To this end, the _bundles/pom.xml_ must be enhanced with a `<module>` tag as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>fr.kazejiyu.piou</groupId>
+	<artifactId>fr.kazejiyu.piou.bundles</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+        ...
+        
+        <modules>
+                <module>fr.kazejiyu.piou.core</module>
+        </modules>
+    
+</project>
+```
+
+### Create a test plug-in
+
+**TODO** Documente creation of test plug-ins for JUnit 4 and JUnit 5, since it can be a bit tricky.
+
+### Create a feature
+
+All the features should be located under the `features/` folder. For instance, adding a `fr.kazejiyu.piou.feature` plug-in to the project would result in the following tree structure:
+
+```
+.
+├───features
+│   │   pom.xml
+│   └───fr.kazejiyu.piou.feature
+│           .project
+│           build.properties
+│           feature.xml
+```
+
+#### Add to Maven build
+
+In order to be taken into account by Maven, the plug-in must be added as a sub-module of the _features_ module. To this end, the _features/pom.xml_ must be enhanced with a `<module>` tag as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>fr.kazejiyu.piou</groupId>
+	<artifactId>fr.kazejiyu.piou.features</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+        ...
+        
+        <modules>
+                <module>fr.kazejiyu.piou.feature</module>
+        </modules>
+    
+</project>
+```
+
+### Configurate the dependencies
+
+The dependencies of a project should be managed through the use of a [target platform](http://www.vogella.com/tutorials/EclipseTargetPlatform/article.html). The archetype automatically generates an empty one called:
+
+- `releng/<artifactId>.releng.targetplatform/<artifactId>.releng.targetplatform.target`.
+
+Since Tycho uses this target platform to configure Maven build, you should update this file each time your project requires a new dependency.
+
+### Generate an update site
+
+Through [p2 update sites](http://www.vogella.com/tutorials/EclipseP2Update/article.html), you can provide your users an easy way to download your plug-ins. The archetype automatically defines an empty one with:
+
+- `releng/<artifactId>.releng.p2/category.xml`.
+
+This file can be modified from Eclipse IDE in order to add new features to the update site.
+
+The command `mvn package` then generates a functional update site in:
+
+- `releng/<artifactId>.releng.p2/target/repository`
