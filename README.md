@@ -1,6 +1,6 @@
 # Tycho Archetype
 
-[![Build Status](https://travis-ci.org/KazeJiyu/kazejiyu-tycho-archetype.svg?branch=master)](https://travis-ci.org/KazeJiyu/kazejiyu-tycho-archetype) [![Bintray](https://img.shields.io/bintray/v/kazejiyu/kazejiyu-tycho-archetype/kazejiyu-tycho-archetype.svg)](https://bintray.com/kazejiyu/kazejiyu-tycho-archetype)
+[![Build Status](https://travis-ci.org/KazeJiyu/kazejiyu-tycho-archetype.svg?branch=master)](https://travis-ci.org/KazeJiyu/kazejiyu-tycho-archetype) [ ![Download](https://api.bintray.com/packages/kazejiyu/kazejiyu-tycho-archetype/kazejiyu-tycho-archetype/images/download.svg) ](https://bintray.com/kazejiyu/kazejiyu-tycho-archetype/kazejiyu-tycho-archetype/_latestVersion)
 
 A [Maven Archetype](https://maven.apache.org/guides/introduction/introduction-to-archetypes.html) that can be used to generate the architecture of a [Tycho](https://www.eclipse.org/tycho/) project.
 
