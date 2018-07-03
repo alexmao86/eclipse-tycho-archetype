@@ -20,15 +20,6 @@
     <module id="${rootArtifactId}.bundles" dir="bundles" name="${rootArtifactId}.bundles" />
     <module id="${rootArtifactId}.features" dir="features" name="${rootArtifactId}.features" />
     <module id="${rootArtifactId}.releng" dir="releng" name="${rootArtifactId}.releng">
-      <fileSets>
-        <fileSet filtered="true" encoding="UTF-8">
-          <directory>__rootArtifactId__.releng.configuration</directory>
-          <includes>
-            <include>**/*.xml</include>
-            <include>**/*.project</include>
-          </includes>
-        </fileSet>
-      </fileSets>
       <modules>
         <module id="${rootArtifactId}.releng.p2" dir="__rootArtifactId__.releng.p2" name="${rootArtifactId}.releng.p2">
           <fileSets>

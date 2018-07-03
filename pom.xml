@@ -11,6 +11,8 @@
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <archetype.test.ignoreEOLStyle>true</archetype.test.ignoreEOLStyle>
   </properties>
   
   <distributionManagement>
