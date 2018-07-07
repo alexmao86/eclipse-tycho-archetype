@@ -44,10 +44,6 @@ The archetype follows [Lars Vogel advices](http://www.vogella.com/tutorials/Ecli
 ├───releng
 │   │   pom.xml
 │   │
-│   ├───<artifactId>.releng.configuration
-│   │       .project
-│   │       pom.xml
-│   │
 │   ├───<artifactId>.releng.p2
 │   │       .project
 │   │       category.xml
@@ -70,8 +66,10 @@ The archetype follows [Lars Vogel advices](http://www.vogella.com/tutorials/Ecli
 - [Create a plug-in](#create-a-plug-in)
 - [Create a test plug-in](#create-a-test-plug-in)
 - [Create a feature](#create-a-feature)
-- [Configurate the dependencies](#configurate-the-dependencies)
+- [Configure the dependencies](#configure-the-dependencies)
 - [Generate an update site](#generate-an-update-site)
+
+> **Note**: please take a look at the [Wiki](https://github.com/KazeJiyu/kazejiyu-tycho-archetype/wiki) for further explanations on how to use the generated project
 
 ### Build the project
 
@@ -81,13 +79,13 @@ The generated project can be built with Maven via `mvn clean package`.
 
 #### Location
 
-All the plug-ins should be located under the `bundles/` folder. For instance, adding a `fr.kazejiyu.piou.core` plug-in to the project would result in the following tree structure:
+All the plug-ins should be located under the `bundles/` folder. For instance, adding a `fr.kazejiyu.foo.core` plug-in to the project would result in the following tree structure:
 
 ```
 .
 ├───bundles
 │   │   pom.xml
-│   └───fr.kazejiyu.piou.core
+│   └───fr.kazejiyu.foo.core
 │       │   .classpath
 │       │   .project
 │       │   build.properties
@@ -108,14 +106,14 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>fr.kazejiyu.piou</groupId>
-	<artifactId>fr.kazejiyu.piou.bundles</artifactId>
+	<groupId>fr.kazejiyu.foo</groupId>
+	<artifactId>fr.kazejiyu.foo.bundles</artifactId>
 	<packaging>pom</packaging>
 	
         ...
         
         <modules>
-                <module>fr.kazejiyu.piou.core</module>
+                <module>fr.kazejiyu.foo.core</module>
         </modules>    
 </project>
 ```
@@ -124,13 +122,13 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
 
 #### Location
 
-All the test plug-ins should be located under the `tests/` folder. For instance, adding a `fr.kazejiyu.piou.core.tests` plugin-in to the project would result in the following tree structure:
+All the test plug-ins should be located under the `tests/` folder. For instance, adding a `fr.kazejiyu.foo.core.tests` plugin-in to the project would result in the following tree structure:
 
 ```
 .
 └───tests
     │   pom.xml
-    └───fr.kazejiyu.piou.core.tests
+    └───fr.kazejiyu.foo.core.tests
         │   .classpath
         │   .project
         │   build.properties
@@ -143,7 +141,7 @@ All the test plug-ins should be located under the `tests/` folder. For instance,
 
 #### Add to Maven build
 
-In order to be taken into account by Maven, the plug-in must be added as a sub-module of the _features_ module. To this end, the _features/pom.xml_ must be enhanced with a `<module>` tag as follows:
+In order to be taken into account by Maven, the plug-in must be added as a sub-module of the _tests_ module. To this end, the _tests/pom.xml_ must be enhanced with a `<module>` tag as follows:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -151,36 +149,36 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>fr.kazejiyu.piou</groupId>
-	<artifactId>fr.kazejiyu.piou.tests</artifactId>
+	<artifactId>fr.kazejiyu.foo.tests</artifactId>
 	<packaging>pom</packaging>
 	
         ...
         
         <modules>
-                <module>fr.kazejiyu.piou.core.tests</module>
+                <module>fr.kazejiyu.foo.core.tests</module>
         </modules>    
 </project>
 ```
 
-Moreover, a _pom.xml_ must be added to the `fr.kazejiyu.piou.core.tests` folder ; its aim is to indicate to Tycho that the plug-in holds tests. This file looks like:
+Moreover, a _pom.xml_ must be added to the `fr.kazejiyu.foo.core.tests` folder ; its aim is to indicate to Tycho that the plug-in holds tests. This file looks like:
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
     <groupId>fr.kazejiyu.piou</groupId>
-    <artifactId>fr.kazejiyu.piou.core.tests</artifactId>
+    <artifactId>fr.kazejiyu.foo.core.tests</artifactId>
     <packaging>eclipse-test-plugin</packaging>
 
 	<parent>
-		<groupId>fr.kazejiyu.piou</groupId>
-		<artifactId>fr.kazejiyu.piou.tests</artifactId>
+		<groupId>fr.kazejiyu.foo</groupId>
+		<artifactId>fr.kazejiyu.foo.tests</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 </project>
 ```
 
-> **Note**: the import thing here is the _eclipse-test-plugin_ packaging.
+> **Note**: the important thing here is the _eclipse-test-plugin_ packaging.
 
 #### Execute the tests
 
@@ -192,13 +190,13 @@ The tests can be executed with `mvn verify`.
 
 #### Location
 
-All the features should be located under the `features/` folder. For instance, adding a `fr.kazejiyu.piou.feature` plug-in to the project would result in the following tree structure:
+All the features should be located under the `features/` folder. For instance, adding a `fr.kazejiyu.foo.feature` plug-in to the project would result in the following tree structure:
 
 ```
 .
 ├───features
 │   │   pom.xml
-│   └───fr.kazejiyu.piou.feature
+│   └───fr.kazejiyu.foo.feature
 │           .project
 │           build.properties
 │           feature.xml
@@ -213,14 +211,14 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>fr.kazejiyu.piou</groupId>
-	<artifactId>fr.kazejiyu.piou.features</artifactId>
+	<groupId>fr.kazejiyu.foo</groupId>
+	<artifactId>fr.kazejiyu.foo.features</artifactId>
 	<packaging>pom</packaging>
 	
         ...
         
         <modules>
-                <module>fr.kazejiyu.piou.feature</module>
+                <module>fr.kazejiyu.foo.feature</module>
         </modules>    
 </project>
 ```
@@ -252,13 +250,13 @@ In order to tell Tycho to generate an update site, the `releng/<artifactId>.rele
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>fr.kazejiyu.piou</groupId>
-	<artifactId>fr.kazejiyu.piou.releng.p2</artifactId>
+	<groupId>fr.kazejiyu.foo</groupId>
+	<artifactId>fr.kazejiyu.foo.releng.p2</artifactId>
 	<packaging>eclipse-repository</packaging>
     
 	<parent>
-		<groupId>fr.kazejiyu.piou</groupId>
-		<artifactId>fr.kazejiyu.piou.piouloulou.releng</artifactId>
+		<groupId>fr.kazejiyu.foo</groupId>
+		<artifactId>fr.kazejiyu.foo.releng</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	
@@ -266,37 +264,10 @@ In order to tell Tycho to generate an update site, the `releng/<artifactId>.rele
 
 ```
 
-By default, the line `<packaging>eclipse-repository</packaging>` is commented because Tycho build fails when trying to generate an empty update site.
+> **Note**: by default, the line `<packaging>eclipse-repository</packaging>` is commented because Tycho build fails when trying to generate an empty update site.
 
 #### Generate the update site
 
 The command `mvn package` generates a functional update site in:
 
 - `releng/<artifactId>.releng.p2/target/repository`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
