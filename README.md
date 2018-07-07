@@ -110,7 +110,6 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
 	
 	<groupId>fr.kazejiyu.piou</groupId>
 	<artifactId>fr.kazejiyu.piou.bundles</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
         ...
@@ -153,7 +152,6 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
 	
 	<groupId>fr.kazejiyu.piou</groupId>
 	<artifactId>fr.kazejiyu.piou.tests</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
         ...
@@ -217,7 +215,6 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
 	
 	<groupId>fr.kazejiyu.piou</groupId>
 	<artifactId>fr.kazejiyu.piou.features</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
         ...
@@ -228,7 +225,7 @@ In order to be taken into account by Maven, the plug-in must be added as a sub-m
 </project>
 ```
 
-### Configurate the dependencies
+### Configure the dependencies
 
 The dependencies of a project should be managed through the use of a [target platform](http://www.vogella.com/tutorials/EclipseTargetPlatform/article.html). The archetype automatically generates an empty one called:
 
@@ -238,12 +235,68 @@ Since Tycho uses this target platform to configure Maven build, you should updat
 
 ### Generate an update site
 
+#### Define the update site
+
 Through [p2 update sites](http://www.vogella.com/tutorials/EclipseP2Update/article.html), you can provide your users an easy way to download your plug-ins. The archetype automatically defines an empty one with:
 
 - `releng/<artifactId>.releng.p2/category.xml`.
 
 This file can be modified from Eclipse IDE in order to add new features to the update site.
 
-The command `mvn package` then generates a functional update site in:
+#### Update Tycho build
+
+In order to tell Tycho to generate an update site, the `releng/<artifactId>.releng.p2/pom.xml` file must be modified to specify the right packaging :
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>fr.kazejiyu.piou</groupId>
+	<artifactId>fr.kazejiyu.piou.releng.p2</artifactId>
+	<packaging>eclipse-repository</packaging>
+    
+	<parent>
+		<groupId>fr.kazejiyu.piou</groupId>
+		<artifactId>fr.kazejiyu.piou.piouloulou.releng</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+</project>
+
+```
+
+By default, the line `<packaging>eclipse-repository</packaging>` is commented because Tycho build fails when trying to generate an empty update site.
+
+#### Generate the update site
+
+The command `mvn package` generates a functional update site in:
 
 - `releng/<artifactId>.releng.p2/target/repository`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
