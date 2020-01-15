@@ -5,7 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <requiredProperties>
     <requiredProperty key="tycho-version">
-      <defaultValue>1.1.0</defaultValue>
+      <defaultValue>1.5.1</defaultValue>
     </requiredProperty>
   </requiredProperties>
   <fileSets>
@@ -21,29 +21,42 @@
     <module id="${rootArtifactId}.features" dir="features" name="${rootArtifactId}.features" />
     <module id="${rootArtifactId}.releng" dir="releng" name="${rootArtifactId}.releng">
       <modules>
-        <module id="${rootArtifactId}.releng.p2" dir="__rootArtifactId__.releng.p2" name="${rootArtifactId}.releng.p2">
+        <module id="${rootArtifactId}.configuration" dir="__rootArtifactId__.configuration" name="${rootArtifactId}.configuration">
           <fileSets>
             <fileSet filtered="true" encoding="UTF-8">
               <directory></directory>
               <includes>
-                <include>.project</include>
-                <include>category.xml</include>
+                <include>**/*</include>
               </includes>
             </fileSet>
           </fileSets>
         </module>
-        <module id="${rootArtifactId}.releng.targetplatform" dir="__rootArtifactId__.releng.targetplatform" name="${rootArtifactId}.releng.targetplatform">
+        <module id="${rootArtifactId}.target" dir="__rootArtifactId__.target" name="${rootArtifactId}.target">
           <fileSets>
             <fileSet filtered="true" encoding="UTF-8">
               <directory></directory>
               <includes>
-                <include>.project</include>
+                <include>**/*</include>
               </includes>
             </fileSet>
-            <fileSet encoding="UTF-8">
+          </fileSets>
+        </module>
+        <module id="${rootArtifactId}.product" dir="__rootArtifactId__.product" name="${rootArtifactId}.product">
+          <fileSets>
+            <fileSet filtered="true" encoding="UTF-8">
               <directory></directory>
               <includes>
-                <include>__rootArtifactId__.releng.targetplatform.target</include>
+                <include>**/*</include>
+              </includes>
+            </fileSet>
+          </fileSets>
+        </module>
+        <module id="${rootArtifactId}.update" dir="__rootArtifactId__.update" name="${rootArtifactId}.update">
+          <fileSets>
+            <fileSet filtered="true" encoding="UTF-8">
+              <directory></directory>
+              <includes>
+                <include>**/*</include>
               </includes>
             </fileSet>
           </fileSets>

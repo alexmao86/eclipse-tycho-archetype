@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="${groupId}.feature" version="0.0.0">
+      <category name="${rootArtifactId} example"/>
+   </feature>
+   <feature id="${groupId}.feature.source" version="0.0.0">
+      <category name="${rootArtifactId}-example-source"/>
+   </feature>
+
+   <category-def name="${rootArtifactId}example" label="${rootArtifactId} example"/>
+   <category-def name="${rootArtifactId}-example-source" label="${rootArtifactId} example source bundles"/>
+</site>
