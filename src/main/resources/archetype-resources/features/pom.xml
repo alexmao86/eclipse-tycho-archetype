@@ -4,6 +4,7 @@
 	
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
 	<packaging>pom</packaging>
     
 	<parent>
@@ -13,8 +14,7 @@
 	</parent>
     
     <modules>
-        <!-- Add your features here as: -->
-        <!-- <module>feature-artifactId</module> -->
+        <!-- Add your feature projects as module here as: -->
     </modules>
 
 </project>

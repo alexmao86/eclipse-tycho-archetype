@@ -4,6 +4,7 @@
 	
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
 	<packaging>pom</packaging>
 
 	<parent>
@@ -11,4 +12,9 @@
 		<artifactId>${rootArtifactId}</artifactId>
 		<version>${version}</version>
 	</parent>
+	<modules>
+		<module>${rootArtifactId}.update</module>
+		<module>${rootArtifactId}.product</module>
+		<module>${rootArtifactId}.target</module>
+	</modules>
 </project>

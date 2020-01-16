@@ -7,6 +7,7 @@
 		<artifactId>${rootArtifactId}.releng</artifactId>
 		<version>${version}</version>
 	</parent>
+	
 	<properties>
 	</properties>
 	

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
 	<!--packaging>eclipse-repository</packaging-->
+    
+    <properties>
+    </properties>
     
 	<parent>
 		<groupId>${groupId}</groupId>
@@ -12,4 +15,61 @@
 		<version>${version}</version>
 	</parent>
 	
+	<build>
+		<plugins>
+			<!-- enable source feature generation -->
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-source-feature-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>source-feature</id>
+						<phase>package</phase>
+						<goals>
+							<goal>source-feature</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<!-- provide plug-ins not containing any source code -->
+						<plugin id="${rootArtifactId}.product" />
+						<plugin id="${rootArtifactId}.target" />
+						<plugin id="${rootArtifactId}.update" />
+					</excludes>
+				</configuration>
+			</plugin>
+            <!-- Generates JAR package containing all the source files of an OSGI project -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${symbol_dollar}{tycho-version}</version>
+
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+            <!-- Generates a p2 update site -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-plugin</artifactId>
+				<version>${symbol_dollar}{tycho-version}</version>
+				<executions>
+					<execution>
+						<id>attached-p2-metadata</id>
+						<phase>package</phase>
+						<goals>
+							<goal>p2-metadata</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

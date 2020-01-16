@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+		
 		<tycho-version>${tycho-version}</tycho-version>
 		<xtext.version>2.9.0</xtext.version>
 		<tycho.extras.version>${symbol_dollar}{tycho-version}</tycho.extras.version>
@@ -20,13 +20,116 @@
 		<!-- Deploy only the P2 update sites and avoid keeping all build artifacts -->
 		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
-	
-	<parent>
-		<groupId>${groupId}</groupId>
-		<artifactId>${rootArtifactId}.configuration</artifactId>
-		<version>${version}</version>
-		<relativePath>./releng/${rootArtifactId}.configuration</relativePath>
-	</parent>
+	<build>
+		<plugins>
+			<!-- Enable Tycho build extension -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${symbol_dollar}{tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			
+			<!--Enable the replacement of the SNAPSHOT version in the final product configuration -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<id>package-feature</id>
+						<configuration>
+							<finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+            <!-- Ease version change -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-versions-plugin</artifactId>
+				<version>${symbol_dollar}{tycho-version}</version>
+			</plugin>
+			
+            <!-- Defines the target definition file to use for build -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${symbol_dollar}{tycho-version}</version>
+				<configuration>
+					<target>
+						<artifact>
+							<groupId>${groupId}</groupId>
+							<!-- will find artifactId.target file in com.vogella.rcp.target project -->
+							<artifactId>${rootArtifactId}.target</artifactId>
+							<version>${symbol_dollar}{project.version}</version>
+						</artifact>
+					</target>
+					<!-- 
+					
+					12.5. Adding org.eclipse.equinox.event as extra requirement
+					In most of the cases the org.eclipse.equinox.event plug-in is used 
+					in an Eclipse RCP application. Unfortunately it sometimes is not 
+					loaded properly for an integration test, even though it is part 
+					of the target platform of the product and mentioned in the start 
+					level configuration. Due to this it needs to be specified in the 
+					configuration of the target-platform-configuration plugin.
+					
+					 -->
+					<dependency-resolution>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.equinox.event</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${symbol_dollar}{tycho-version}</version>
+				<!--executions>
+					<execution>
+						<id>default-test</id>
+						<phase>test</phase>
+					</execution>
+				</executions-->
+				<configuration>
+                	<failIfNoTests>false</failIfNoTests>
+                	<includes>
+                		<include>**/*Test*.java</include>
+                		<include>**/*Tests*.java</include>
+               		</includes>
+               		<excludes>
+               			<exclude>src-gen/*</exclude>
+               		</excludes>
+                </configuration>
+			</plugin>
+		</plugins>
+	</build>
 	
 	<modules>
 		<module>bundles</module>

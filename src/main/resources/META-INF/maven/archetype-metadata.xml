@@ -7,6 +7,11 @@
     <requiredProperty key="tycho-version">
       <defaultValue>1.5.1</defaultValue>
     </requiredProperty>
+    <!-- typo p2-director only support -SNAPSHOT -->
+    <!--i.e. Enable the replacement of the SNAPSHOT version in the final product configuration-->
+    <requiredProperty key="version">
+    	<defaultValue>1.0.0-SNAPSHOT</defaultValue>
+    </requiredProperty>
   </requiredProperties>
   <fileSets>
     <fileSet filtered="true" encoding="UTF-8">
@@ -18,19 +23,18 @@
   </fileSets>
   <modules>
     <module id="${rootArtifactId}.bundles" dir="bundles" name="${rootArtifactId}.bundles" />
-    <module id="${rootArtifactId}.features" dir="features" name="${rootArtifactId}.features" />
+    <module id="${rootArtifactId}.features" dir="features" name="${rootArtifactId}.features" >
+    	<fileSets>
+	    	<fileSet filtered="true" encoding="UTF-8">
+				<directory></directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</fileSet>
+		</fileSets>
+    </module>
     <module id="${rootArtifactId}.releng" dir="releng" name="${rootArtifactId}.releng">
       <modules>
-        <module id="${rootArtifactId}.configuration" dir="__rootArtifactId__.configuration" name="${rootArtifactId}.configuration">
-          <fileSets>
-            <fileSet filtered="true" encoding="UTF-8">
-              <directory></directory>
-              <includes>
-                <include>**/*</include>
-              </includes>
-            </fileSet>
-          </fileSets>
-        </module>
         <module id="${rootArtifactId}.target" dir="__rootArtifactId__.target" name="${rootArtifactId}.target">
           <fileSets>
             <fileSet filtered="true" encoding="UTF-8">

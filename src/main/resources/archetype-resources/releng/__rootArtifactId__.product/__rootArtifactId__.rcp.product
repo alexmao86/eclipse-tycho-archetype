@@ -94,7 +94,6 @@
 
    <features>
       <feature id="org.eclipse.e4.rcp" installMode="root"/>
-      <feature id="com.vogella.tycho.feature" version="1.0.0.qualifier"/>
       <feature id="org.eclipse.emf.ecore"/>
       <feature id="org.eclipse.emf.common"/>
    </features>
