@@ -4,6 +4,7 @@
 	
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
 	<packaging>pom</packaging>
 
 	<parent>
@@ -19,12 +20,6 @@
     
     <build>
         <plugins>
-            <!-- Executes JUnit tests -->
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-surefire-plugin</artifactId>
-                <version>${tycho-version}</version>
-            </plugin>
         </plugins>
     </build>
 	

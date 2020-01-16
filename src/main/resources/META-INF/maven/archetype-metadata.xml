@@ -23,16 +23,7 @@
   </fileSets>
   <modules>
     <module id="${rootArtifactId}.bundles" dir="bundles" name="${rootArtifactId}.bundles" />
-    <module id="${rootArtifactId}.features" dir="features" name="${rootArtifactId}.features" >
-    	<fileSets>
-	    	<fileSet filtered="true" encoding="UTF-8">
-				<directory></directory>
-				<includes>
-					<include>**/*</include>
-				</includes>
-			</fileSet>
-		</fileSets>
-    </module>
+    <module id="${rootArtifactId}.features" dir="features" name="${rootArtifactId}.features" />
     <module id="${rootArtifactId}.releng" dir="releng" name="${rootArtifactId}.releng">
       <modules>
         <module id="${rootArtifactId}.target" dir="__rootArtifactId__.target" name="${rootArtifactId}.target">
@@ -67,6 +58,29 @@
         </module>
       </modules>
     </module>
-    <module id="${rootArtifactId}.tests" dir="tests" name="${rootArtifactId}.tests" />
+    <module id="${rootArtifactId}.tests" dir="tests" name="${rootArtifactId}.tests" >
+    	<modules>
+    		<module id="${rootArtifactId}.it.tests" dir="__rootArtifactId__.it.tests" name="${rootArtifactId}.it.tests">
+	          <fileSets>
+	            <fileSet filtered="true" encoding="UTF-8">
+	              <directory></directory>
+	              <includes>
+	                <include>**/*</include>
+	              </includes>
+	            </fileSet>
+	          </fileSets>
+	        </module>
+	        <module id="${rootArtifactId}.ut.tests" dir="__rootArtifactId__.ut.tests" name="${rootArtifactId}.ut.tests">
+	          <fileSets>
+	            <fileSet filtered="true" encoding="UTF-8">
+	              <directory></directory>
+	              <includes>
+	                <include>**/*</include>
+	              </includes>
+	            </fileSet>
+	          </fileSets>
+	        </module>
+    	</modules>
+    </module>
   </modules>
 </archetype-descriptor>
